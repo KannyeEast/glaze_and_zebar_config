@@ -1,0 +1,304 @@
+  /*********************/
+ /** Global Settings **/
+/*********************/
+
+/* General Settings */
+* {
+  user-select: none;
+  transition: all 0.2s ease, opacity 0s, visibility 0s;
+}
+/**/
+
+/* Root Variables */
+:root {
+  font-size: 16px;
+  
+  --bg:                     hsla(240, 10%, 20%, 0.65);
+  --fg:                     hsla(240, 10%, 40%, 0.5);
+  --bg-highlight:           hsla(240, 10%, 20%, 1);
+  --fg-highlight:           hsla(240, 20%, 50%, 0.5);
+  
+  --text:                   hsl(240, 10%, 95%);
+
+  --load-low:               hsl(140, 55%, 55%);
+  --load-medium:            hsl(40, 100%, 75%);
+  --load-high:              hsl(350, 85%, 60%);
+  --load-extreme:           hsl(325, 100%, 25%);
+
+  --load-light-gray:        hsla(225, 30%, 90%, 0.95);
+  --load-gray:              hsla(230, 25%, 80%, 0.85);
+  --load-dark-gray:         hsla(225, 15%, 66%, 0.7);
+  --load-very-dark-gray:    hsla(200, 15%, 50%, 0.25);
+}
+/**/
+
+/* Load Levels */
+.load.low                   { color: var(--load-low); }
+.load.medium                { color: var(--load-medium); }
+.load.high                  { color: var(--load-high); }
+.load.extreme               { color: var(--load-extreme); }
+
+.gray.load.low              { color: var(--load-light-gray); }
+.gray.load.medium           { color: var(--load-gray); }
+.gray.load.high             { color: var(--load-dark-gray); }
+.gray.load.extreme          { color: var(--load-very-dark-gray); }
+/**/
+
+/* Icons - https://icons8.com/icons */
+.i {
+  /* Hex to Filter - https://codepen.io/sosuke/pen/Pjoqqp */
+  filter: invert(89%) sepia(4%) saturate(81%) hue-rotate(201deg) brightness(110%) contrast(91%);
+  transform: translateY(0.125em);
+  margin: 0 0.5rem;
+}
+
+img {
+  pointer-events: none;
+}
+/**/
+
+/* Buttons */
+button{
+  background: transparent;
+  border: none !important;
+  pointer-events: auto;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+/**/
+
+/* Hover Details - Hidden Details */
+.hover-details {
+  display: inline-flex;
+  opacity: 0;
+  visibility: hidden;
+  max-width: 0;
+}
+
+.open.hover-details {
+  opacity: 1;
+  visibility: visible;
+  color: var(--load-light-gray);
+  background: var(--fg);
+  border-radius: 2em;
+  padding: 0.5rem;
+  margin: 0 0.25rem;
+  gap: 0.5em;
+  max-width: 25rem;
+  transition: opacity 0s, visibility 0s;
+}
+
+.audio.open.hover-details {
+  transform: translateY(-0.5em);
+  background: none !important;
+  padding: 0;
+}
+
+.open.hover-details:has(.unfocused) {
+  background: none;
+  margin: 0;
+  gap: 0;
+}
+
+.hover-details button:hover {
+  background: var(--fg-highlight);
+  transition: all 0.2s ease;
+  padding: 0.05rem;
+  border-radius: 1em;
+}
+/**/
+
+/* Text Bodies */
+.media {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text);
+  margin: 0 0.25rem 0 0;
+  transform: translateY(0.05rem);
+  max-width: 25rem;
+}
+
+.media.i {
+  transform: translateX(0.25rem) translateY(0.15rem);
+}
+
+.media.rot {
+  transform: rotate(180deg) translateX(-0.25rem) translateY(-0.15rem);
+}
+/**/
+
+/* Resolution Overrides */
+@media (max-width: 1920px) {
+  .i{
+    transform: translateY(0.15em);
+  }
+  
+  .media {
+    transform: translateY(0.1rem);
+  }
+  
+  .bg:has(.rot) .media {
+    max-width: 12.5rem;
+  }
+}
+/**/
+  
+  /***************/
+ /** Main Body **/ 
+/***************/
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  color: var(--text);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  overflow: hidden;
+}
+
+.app {
+  display: flex;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  padding: 0 2rem;
+}
+  
+.bg {
+  display: inline-flex;
+  align-items: center;
+  pointer-events: none;
+  background: var(--bg);
+  margin: 0 0.15rem;
+  padding: 0.5rem 0.5rem;
+  border-radius: 2em;
+}
+
+.bg:hover:not(:has(.hover-details:hover))  {
+  background: var(--bg-highlight);
+  border-radius: 0.75em;
+}
+
+/* Structure */
+.left, .right, .center {
+  display: flex;
+  justify-content: center;
+}
+
+.center {
+  flex: 1;
+}
+/**/
+
+  /**********/
+ /** Left **/
+/**********/
+
+/* Lock */
+.ovr {
+  display: inline-flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem;
+  border-radius: 5em;
+  background: var(--bg);
+  margin: 0 0.5rem;
+}
+
+.ovr:hover {
+  background: var(--bg-highlight);
+  transform: scale(1.1) translateY(-0.75em);
+}
+
+.lock {
+  border-radius: 5em;
+  padding: 0.5rem;
+}
+
+.lock.locked {
+  background: var(--load-high);
+  transition: all 0.25s ease;
+}
+
+.lock.unlocked {
+  background: var(--load-low);
+  transition: all 0.25s ease;
+}
+/**/
+
+/* Tiling Direction */
+.rot{
+  transform: rotate(-90deg);
+}
+/**/
+  
+/* Workspace Symbols */
+.focused {
+  font-size: 1.2em;
+  color: var(--text);
+}  
+
+.unfocused {
+  color: var(--load-dark-gray);
+}
+
+.taskbar {
+  padding: 0 0 0 1rem;
+}
+/**/
+
+  /***********/
+ /** Right **/
+/***********/
+  
+/* System Tray */
+.open.i{
+  transform: rotate(-180deg) translateY(-0.15em);
+}
+
+.i-sys {
+  transform: translateY(0.15em);
+  margin: 0 0.33em;
+}
+/**/
+
+/* Network */
+.label {
+  display: flex;
+  color: var(--text);
+  font-size: 0.45rem;
+}
+  
+.label.hover-details {
+  flex-direction: column;
+  font-size: 0.55rem;
+}
+
+.bg.label {
+  pointer-events: auto;
+  font-size: 0.75rem;
+}
+
+.net-down {
+  color: var(--load-low);
+}
+
+.net-up {
+  color: var(--load-high);
+}
+/**/
+  
+/* Disk */
+.disk.load{
+  margin: 0 0.5em 0 0.33em;
+}
+/**/
